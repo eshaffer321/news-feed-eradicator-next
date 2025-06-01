@@ -22,8 +22,6 @@ export function eradicate(store: Store) {
 			return;
 		}
 
-		const container = feed;
-
 		// Add News Feed Eradicator quote/info panel
 		if (feed && !isAlreadyInjected()) {
 			injectUI(feed, store, { asFirstChild: true });

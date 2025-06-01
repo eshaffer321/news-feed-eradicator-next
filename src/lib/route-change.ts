@@ -10,10 +10,10 @@ import { Store } from '../store';
 const CHECK_INTERVAL = 1000;
 
 let lastPath: string | undefined = undefined;
-let element = document.querySelector('html');
+const element = document.querySelector('html');
 
 export function setupRouteChange(store: Store) {
-	const updateEnabledStatus = (): any => {
+	const updateEnabledStatus = (): void => {
 		const settings = store.getState().settings;
 		if (settings == null) {
 			// Settings not loaded yet, we need them to check if this site is enabled
@@ -23,12 +23,13 @@ export function setupRouteChange(store: Store) {
 
 		const status = enabledStatus(settings);
 		switch (status.type) {
-			case 'enabled':
+			case 'enabled': {
 				element!.dataset.nfeEnabled = 'true';
 				// Scroll back to top when reenabled
 				setTimeout(() => window.scrollTo(0, 0), 100);
 				return;
-			case 'disabled':
+			}
+			case 'disabled': {
 				// Delay showing the feed when switching pages, sometimes it can appear
 				// before the page has switched
 				//
@@ -41,17 +42,19 @@ export function setupRouteChange(store: Store) {
 
 				element!.dataset.nfeEnabled = 'false';
 				return;
-			case 'disabled-temporarily':
+			}
+			case 'disabled-temporarily': {
 				element!.dataset.nfeEnabled = 'false';
 				const remainingTime = status.until - Date.now();
 				const checkAgainDelay = remainingTime > 60000 ? 60000 : remainingTime;
 				setTimeout(updateEnabledStatus, checkAgainDelay);
+			}
 		}
 	};
 
 	let timer: NodeJS.Timer | undefined = undefined;
 	const checkIfLocationChanged = () => {
-		let path = document.location.pathname;
+		const path = document.location.pathname;
 		if (path != lastPath) {
 			lastPath = path;
 			updateEnabledStatus();

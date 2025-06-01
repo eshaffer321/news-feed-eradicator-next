@@ -104,7 +104,7 @@ export const SitesOptions = (store: Store) => {
 		};
 
 		const bgColor = stateColor(siteStatus);
-		let showDisableConfirm = state.uiOptions.confirmDisableSite === id;
+		const showDisableConfirm = state.uiOptions.confirmDisableSite === id;
 		return h('div', [
 			h(
 				'button.pad-0.site-grid.border.width-100pc.underline-off' + bgColor,
@@ -122,7 +122,7 @@ export const SitesOptions = (store: Store) => {
 	};
 
 	const health = getSettingsHealth(state.settings);
-	let alerts: VNode[] = [];
+	const alerts: VNode[] = [];
 	if (health.noSitesEnabled) {
 		alerts.push(
 			WarningAlert(

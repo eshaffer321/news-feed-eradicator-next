@@ -34,7 +34,7 @@ const CheckboxField = (
 };
 
 const QuoteOptions = (store: Store) => {
-	let state = store.getState();
+	const state = store.getState();
 	if (state.settings == null) {
 		return null;
 	}
@@ -119,7 +119,7 @@ const QuoteOptions = (store: Store) => {
 };
 
 const BuiltinQuoteTable = (store: Store) => {
-	let state = store.getState();
+	const state = store.getState();
 	if (state.settings == null) {
 		return null;
 	}
@@ -176,7 +176,7 @@ const BuiltinQuoteTable = (store: Store) => {
 };
 
 const CustomQuoteTable = (store: Store) => {
-	let state = store.getState();
+	const state = store.getState();
 	if (state.settings == null) {
 		return null;
 	}

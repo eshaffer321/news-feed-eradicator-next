@@ -31,7 +31,7 @@ export function eradicate(store: Store) {
 		}
 
 		// Don't do anything if the FB UI hasn't loaded yet
-		var streamContainer = document.querySelector('#stream_pagelet');
+		const streamContainer = document.querySelector('#stream_pagelet');
 		if (streamContainer == null) {
 			return;
 		}

@@ -2,10 +2,12 @@
  * See the WebExtension API:
  * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API
  */
+import { Message } from './messaging/types';
+
 type WebExtensionAPI = {
 	runtime: {
 		openOptionsPage: () => Promise<void>;
-		sendMessage: (message: any) => Promise<void>;
+		sendMessage: (message: Message) => Promise<void>;
 		connect: () => Port;
 		onConnect: WebExtensionEvent<Port>;
 	};
@@ -21,14 +23,14 @@ type WebExtensionAPI = {
 		onUpdated: WebExtensionEvent<TabId>;
 	};
 	scripting: {
-		executeScript: (opts: ExecuteOptions) => Promise<any>;
-		insertCSS: (opts: InsertCssOptions) => Promise<any>;
+		executeScript: (opts: ExecuteOptions) => Promise<unknown[]>;
+		insertCSS: (opts: InsertCssOptions) => Promise<unknown[]>;
 		registerContentScripts: (opts: RegisteredContentScript[]) => Promise<void>;
 		unregisterContentScripts: () => Promise<void>;
 	};
 	storage: {
 		sync: {
-			get(keys: string | string[] | null): Promise<any>;
+			get(keys: string | string[] | null): Promise<Record<string, unknown>>;
 			set(keys: object): void;
 		};
 	};
@@ -69,9 +71,9 @@ export type Permissions = {
 };
 
 export type Port = {
-	postMessage(msg: any): void;
+	postMessage(msg: Message): void;
 	onDisconnect: WebExtensionEvent<Port>;
-	onMessage: WebExtensionEvent<any>;
+	onMessage: WebExtensionEvent<Message>;
 };
 
 /**
@@ -85,9 +87,9 @@ type ChromeWebExtensionAPI = {
 		openOptionsPage: (cb: () => void) => void;
 		sendMessage: (
 			extId: string | undefined,
-			message: any,
+			message: Message,
 			options: undefined,
-			responseCallback: (res: any) => void
+			responseCallback: (res: void) => void
 		) => void;
 		connect: () => Port;
 		onConnect: WebExtensionEvent<Port>;
@@ -104,21 +106,24 @@ type ChromeWebExtensionAPI = {
 		onUpdated: WebExtensionEvent<TabId>;
 	};
 	scripting: {
-		executeScript: (opts: ExecuteOptions) => Promise<any>;
-		insertCSS: (opts: InsertCssOptions) => Promise<any>;
+		executeScript: (opts: ExecuteOptions) => Promise<unknown[]>;
+		insertCSS: (opts: InsertCssOptions) => Promise<unknown[]>;
 		registerContentScripts: (opts: RegisteredContentScript[]) => Promise<void>;
 		unregisterContentScripts: () => Promise<void>;
 	};
 	storage: {
 		sync: {
-			get(keys: string | string[] | null, callback: (data: any) => void): void;
+			get(
+				keys: string | string[] | null,
+				callback: (data: Record<string, unknown>) => void
+			): void;
 			set(keys: object): void;
 		};
 	};
 };
 
-declare var browser: WebExtensionAPI | undefined;
-declare var chrome: ChromeWebExtensionAPI | undefined;
+declare let browser: WebExtensionAPI | undefined;
+declare let chrome: ChromeWebExtensionAPI | undefined;
 
 export function getBrowser(): WebExtensionAPI {
 	if (typeof browser !== 'undefined') {

@@ -1,4 +1,4 @@
-import { Effect } from '../lib/redux-effects';
+import { Effect, effectAll } from '../lib/redux-effects';
 import { IState } from './reducer';
 import { currentQuote, getAvailableQuotes } from './selectors';
 import { ActionType, ActionObject } from './action-types';
@@ -13,7 +13,7 @@ import {
 	SiteStatusTag,
 } from '../background/store/sites/selectors';
 import { Store } from '.';
-import { Settings } from '../background/store';
+import { SettingsSiteStateTag } from '../background/store/index';
 
 export type AppEffect = Effect<IState, ActionObject>;
 
@@ -105,7 +105,7 @@ const quoteAddBulk: AppEffect = (store) => (action) => {
 
 	const lines = action.text.split('\n');
 	const quotes: string[][] = [];
-	for (var lineCount = 0; lineCount < lines.length; lineCount++) {
+	for (let lineCount = 0; lineCount < lines.length; lineCount++) {
 		const line = lines[lineCount];
 		const quote = line.split('~');
 		const trimmedQuote: string[] = [];
@@ -117,7 +117,7 @@ const quoteAddBulk: AppEffect = (store) => (action) => {
 				type: ActionType.PARSE_ERROR,
 				message: `Invalid format on line ${(
 					lineCount + 1
-				).toString()}: \"${quote}\". Check that you have a "~" separating the quote text and the source.`,
+				).toString()}: "${quote}". Check that you have a "~" separating the quote text and the source.`,
 			});
 		} else {
 			quote.forEach((field) => trimmedQuote.push(field.trim()));
@@ -174,14 +174,14 @@ const siteClicked: AppEffect = (store) => async (action) => {
 			if (await requestPermissions(store as Store, site.origins)) {
 				store.dispatch(
 					setSiteState(action.site, {
-						type: Settings.SiteStateTag.ENABLED,
+						type: SettingsSiteStateTag.ENABLED,
 					})
 				);
 			} else {
 				// Permission denied, disable the site
 				store.dispatch(
 					setSiteState(action.site, {
-						type: Settings.SiteStateTag.DISABLED,
+						type: SettingsSiteStateTag.DISABLED,
 					})
 				);
 			}
@@ -190,14 +190,14 @@ const siteClicked: AppEffect = (store) => async (action) => {
 			if (success) {
 				store.dispatch(
 					setSiteState(action.site, {
-						type: Settings.SiteStateTag.ENABLED,
+						type: SettingsSiteStateTag.ENABLED,
 					})
 				);
 			}
 		} else if (s.type === SiteStatusTag.DISABLED_TEMPORARILY) {
 			store.dispatch(
 				setSiteState(action.site, {
-					type: Settings.SiteStateTag.ENABLED,
+					type: SettingsSiteStateTag.ENABLED,
 				})
 			);
 		} else if (s.type === SiteStatusTag.ENABLED) {
@@ -217,13 +217,13 @@ const confirmSiteDisabled: AppEffect = (store) => async (action) => {
 			await removePermissions(store as Store, site.origins);
 			store.dispatch(
 				setSiteState(action.site, {
-					type: Settings.SiteStateTag.DISABLED,
+					type: SettingsSiteStateTag.DISABLED,
 				})
 			);
 		} else {
 			store.dispatch(
 				setSiteState(action.site, {
-					type: Settings.SiteStateTag.DISABLED_TEMPORARILY,
+					type: SettingsSiteStateTag.DISABLED_TEMPORARILY,
 					disabled_until: Date.now() + action.until.milliseconds,
 				})
 			);
@@ -259,7 +259,7 @@ const connect: AppEffect = (store) => {
 	};
 };
 
-export const rootEffect: AppEffect = Effect.all(
+export const rootEffect: AppEffect = effectAll(
 	refreshQuotes,
 	selectNewQuote,
 	quoteRemoveCurrent,
