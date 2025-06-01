@@ -7,7 +7,11 @@
 	"license": "MIT",
 	"version": "2.3.1",
 	"lint-staged": {
-		"src/**/*.{js,ts,css,html,json,md}": [
+		"src/**/*.{js,ts}": [
+			"eslint --max-warnings=0",
+			"prettier --write"
+		],
+		"src/**/*.{css,html,json,md}": [
 			"prettier --write"
 		],
 		"scripts/**/*.js": [
