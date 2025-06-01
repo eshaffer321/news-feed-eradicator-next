@@ -11,7 +11,7 @@ import {
 } from './action-types';
 import { BackgroundActionType } from '../background/store/action-types';
 import { SiteId } from '../sites';
-import { Settings } from '../background/store';
+import { SettingsSiteState } from '../background/store/index';
 
 export function addQuote(
 	id: string,
@@ -92,7 +92,7 @@ export const showOptions = (): UiOptionsShow => ({
 
 export const setSiteState = (
 	siteId: SiteId,
-	state: Settings.SiteState
+	state: SettingsSiteState
 ): ActionObject => ({
 	type: ActionType.BACKGROUND_ACTION,
 	action: {

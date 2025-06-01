@@ -1,7 +1,7 @@
 import { SettingsState } from './reducer';
 import { Permissions } from '../../webextension';
 import { SiteId } from '../../sites';
-import { Settings } from '.';
+import { SettingsSiteState } from './index';
 
 export enum BackgroundActionType {
 	QUOTES_SHOW_TOGGLE = 'QUOTES_SHOW_TOGGLE',
@@ -86,7 +86,7 @@ export type PermissionsUpdate = {
 export type SitesSetState = {
 	type: BackgroundActionType.SITES_SET_STATE;
 	siteId: SiteId;
-	state: Settings.SiteState;
+	state: SettingsSiteState;
 };
 export type ContentScriptsRegister = {
 	type: BackgroundActionType.CONTENT_SCRIPTS_REGISTER;

@@ -7,7 +7,7 @@ import { CustomQuote } from '../../quote';
 import { combineReducers } from 'redux';
 import { Permissions } from '../../webextension';
 import { SiteId } from '../../sites';
-import { Settings } from './index';
+import { defaultSites, SettingsSitesState, SettingsSiteState } from './index';
 
 function showQuotes(state = true, action: ActionObject) {
 	switch (action.type) {
@@ -84,9 +84,9 @@ function permissions(
 }
 
 function sites(
-	state: Settings.SitesState | undefined = Settings.defaultSites(),
+	state: SettingsSitesState | undefined = defaultSites(),
 	action: ActionObject
-): Record<SiteId, Settings.SiteState> {
+): Record<SiteId, SettingsSiteState> {
 	switch (action.type) {
 		case ActionType.SITES_SET_STATE:
 			return { ...state, [action.siteId]: action.state };
@@ -100,7 +100,7 @@ export type SettingsState = {
 	featureIncrement: number;
 	hiddenBuiltinQuotes: number[];
 	customQuotes: CustomQuote[];
-	sites: Record<SiteId, Settings.SiteState>;
+	sites: Record<SiteId, SettingsSiteState>;
 	permissions: Permissions;
 };
 
