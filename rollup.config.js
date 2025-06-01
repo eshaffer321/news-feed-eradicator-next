@@ -11,6 +11,7 @@ const plugins = [
 	typescript(),
 	replace({
 		'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+		preventAssignment: true,
 	}),
 	string({
 		include: "**/*.str.css"
@@ -22,6 +23,7 @@ const intercept = {
 	output: {
 		file: 'build/intercept.js',
 		format: 'iife',
+		name: 'Intercept',
 	},
 	plugins: [...plugins, css({ exclude: '**/*.str.css', output: 'build/eradicate.css' })],
 };
@@ -31,6 +33,7 @@ const options = {
 	output: {
 		file: 'build/options.js',
 		format: 'iife',
+		name: 'Options',
 	},
 	plugins: [...plugins, css({ exclude: '**/*.str.css', output: 'build/options.css' })],
 };
@@ -40,6 +43,7 @@ const background = {
 	output: {
 		file: 'build/service-worker.js',
 		format: 'iife',
+		name: 'ServiceWorker',
 	},
 	plugins,
 };
