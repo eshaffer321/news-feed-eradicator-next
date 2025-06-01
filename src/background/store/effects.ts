@@ -1,17 +1,23 @@
-import { Effect } from '../../lib/redux-effects';
+import { Effect, effectAll } from '../../lib/redux-effects';
 import { BackgroundState, SettingsState } from './reducer';
 import { BackgroundActionObject, BackgroundActionType } from './action-types';
 import { getBrowser, Port } from '../../webextension';
 import { Message, MessageType } from '../../messaging/types';
-import { Settings } from './index';
 import config from '../../config';
 import { getPermissions, sitesEffect } from './sites/effects';
 import { getSettingsHealth } from './sites/selectors';
 import { SiteId, Sites } from '../../sites';
+import {
+	SettingsT,
+	saveSettings,
+	loadSettings,
+	SettingsSiteState,
+	SettingsSiteStateTag,
+} from './index';
 
 export type BackgroundEffect = Effect<BackgroundState, BackgroundActionObject>;
 
-const getSettings = (state: SettingsState): Settings.T => {
+const getSettings = (state: SettingsState): SettingsT => {
 	return {
 		version: 1,
 		showQuotes: state.showQuotes,
@@ -60,7 +66,7 @@ const listen: BackgroundEffect = (store) => {
 		// Send the new client the latest settings
 		if (state.ready === true) {
 			const settings: SettingsState = state.settings;
-			Settings.save(getSettings(state.settings));
+			saveSettings(getSettings(state.settings));
 			pages.forEach((port) =>
 				port.postMessage({ t: MessageType.SETTINGS_CHANGED, settings })
 			);
@@ -72,16 +78,16 @@ export function areNewFeaturesAvailable(state: SettingsState) {
 	return config.newFeatureIncrement > state.featureIncrement;
 }
 
-const loadSettings: BackgroundEffect = (store) => async (action) => {
+const loadSettingsEffect: BackgroundEffect = (store) => async (action) => {
 	if (action.type === BackgroundActionType.SETTINGS_LOAD) {
 		const [settings, permissions] = await Promise.all([
-			Settings.load(),
+			loadSettings(),
 			getPermissions(),
 		]);
 
-		const sites: Record<SiteId, Settings.SiteState> = {} as Record<
+		const sites: Record<SiteId, SettingsSiteState> = {} as Record<
 			SiteId,
-			Settings.SiteState
+			SettingsSiteState
 		>;
 		// For any sites that don't yet exist in the settings,
 		// add a note to look at the permissions as the source of
@@ -90,7 +96,7 @@ const loadSettings: BackgroundEffect = (store) => async (action) => {
 			sites[key] =
 				settings.sites[key] != null
 					? settings.sites[key]
-					: { type: Settings.SiteStateTag.CHECK_PERMISSIONS };
+					: { type: SettingsSiteStateTag.CHECK_PERMISSIONS };
 		}
 
 		const state: SettingsState = {
@@ -153,9 +159,9 @@ export const logAction: BackgroundEffect = () => async (action) => {
 	console.info(action);
 };
 
-export const rootEffect = Effect.all(
+export const rootEffect = effectAll(
 	listen,
-	loadSettings,
+	loadSettingsEffect,
 	sitesEffect,
 	registerContentScripts,
 	logAction

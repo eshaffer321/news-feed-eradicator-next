@@ -14,20 +14,18 @@ export type Effect<State, Action extends ReduxAction> = (
 	store: MiddlewareAPI<State, Action>
 ) => (action: Action) => void;
 
-export namespace Effect {
-	export function all<State, Action extends ReduxAction>(
-		...effects: Effect<State, Action>[]
-	): Effect<State, Action> {
-		return (store: MiddlewareAPI<State, Action>) => {
-			const actionEffects = effects.map((eff) => eff(store));
+export function effectAll<State, Action extends ReduxAction>(
+	...effects: Effect<State, Action>[]
+): Effect<State, Action> {
+	return (store: MiddlewareAPI<State, Action>) => {
+		const actionEffects = effects.map((eff) => eff(store));
 
-			return (action: Action) => {
-				actionEffects.forEach((eff) => {
-					eff(action);
-				});
-			};
+		return (action: Action) => {
+			actionEffects.forEach((eff) => {
+				eff(action);
+			});
 		};
-	}
+	};
 }
 
 export const effectsMiddleware =

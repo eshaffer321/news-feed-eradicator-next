@@ -1,6 +1,6 @@
 import { SettingsState } from '../reducer';
 import { SiteId, Sites, Site } from '../../../sites';
-import { Settings } from '..';
+import { SettingsSiteStateTag } from '../index';
 
 type SettingsHealth = {
 	noSitesEnabled: boolean;
@@ -45,19 +45,15 @@ export function getSettingsHealth(state: SettingsState): SettingsHealth {
 	};
 }
 
-namespace Record {
-	type ValidKey = string;
-
-	export function map<Key extends ValidKey, ValFrom, ValTo>(
-		record: Record<Key, ValFrom>,
-		mapper: (key: string, val: ValFrom) => ValTo
-	): Record<Key, ValTo> {
-		const out: Record<Key, ValTo> = {} as Record<Key, ValTo>;
-		for (const key of Object.keys(record)) {
-			out[key] = mapper(key, record[key]);
-		}
-		return out;
+export function recordMap<Key extends string, ValFrom, ValTo>(
+	record: Record<Key, ValFrom>,
+	mapper: (key: string, val: ValFrom) => ValTo
+): Record<Key, ValTo> {
+	const out: Record<Key, ValTo> = {} as Record<Key, ValTo>;
+	for (const key of Object.keys(record)) {
+		out[key as Key] = mapper(key, record[key]);
 	}
+	return out;
 }
 
 /*
@@ -67,8 +63,8 @@ namespace Record {
 export function getSiteStatus(
 	state: SettingsState
 ): Record<SiteId, SiteStatus> {
-	return Record.map(state.sites, (key, siteState) => {
-		if (siteState.type === Settings.SiteStateTag.DISABLED) {
+	const mapped = recordMap(state.sites, (key, siteState) => {
+		if (siteState.type === SettingsSiteStateTag.DISABLED) {
 			return { type: SiteStatusTag.DISABLED };
 		}
 
@@ -80,14 +76,14 @@ export function getSiteStatus(
 		);
 
 		switch (siteState.type) {
-			case Settings.SiteStateTag.ENABLED:
+			case SettingsSiteStateTag.ENABLED:
 				// Explicitly enabled - make sure permissions are there
 				if (grantedOrigins.length === site.origins.length) {
 					return { type: SiteStatusTag.ENABLED };
 				}
 				return { type: SiteStatusTag.NEEDS_NEW_PERMISSIONS };
 
-			case Settings.SiteStateTag.CHECK_PERMISSIONS:
+			case SettingsSiteStateTag.CHECK_PERMISSIONS:
 				// Not explicitly set, check the permissions instead to determine if enabled
 				if (grantedOrigins.length === site.origins.length) {
 					return { type: SiteStatusTag.ENABLED };
@@ -95,7 +91,7 @@ export function getSiteStatus(
 					return { type: SiteStatusTag.NEEDS_NEW_PERMISSIONS };
 				}
 				return { type: SiteStatusTag.DISABLED };
-			case Settings.SiteStateTag.DISABLED_TEMPORARILY:
+			case SettingsSiteStateTag.DISABLED_TEMPORARILY:
 				// Disable temporarily only - make sure permissions are there
 				if (grantedOrigins.length === site.origins.length) {
 					if (siteState.disabled_until > Date.now()) {
@@ -110,4 +106,13 @@ export function getSiteStatus(
 				return { type: SiteStatusTag.NEEDS_NEW_PERMISSIONS };
 		}
 	});
+
+	// Filter out undefined values to match the expected return type
+	const filtered: Record<SiteId, SiteStatus> = {} as Record<SiteId, SiteStatus>;
+	for (const key in mapped) {
+		if (mapped[key] !== undefined) {
+			filtered[key as SiteId] = mapped[key]!;
+		}
+	}
+	return filtered;
 }

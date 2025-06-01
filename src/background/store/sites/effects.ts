@@ -1,5 +1,5 @@
 import { BackgroundEffect } from '../effects';
-import { Effect } from '../../../lib/redux-effects';
+import { effectAll } from '../../../lib/redux-effects';
 import { BackgroundActionType } from '../action-types';
 import { getBrowser } from '../../../webextension';
 
@@ -17,4 +17,4 @@ const checkPermissions: BackgroundEffect = (store) => async (action) => {
 	}
 };
 
-export const sitesEffect: BackgroundEffect = Effect.all(checkPermissions);
+export const sitesEffect: BackgroundEffect = effectAll(checkPermissions);
