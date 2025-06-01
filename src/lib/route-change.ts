@@ -23,12 +23,13 @@ export function setupRouteChange(store: Store) {
 
 		const status = enabledStatus(settings);
 		switch (status.type) {
-			case 'enabled':
+			case 'enabled': {
 				element!.dataset.nfeEnabled = 'true';
 				// Scroll back to top when reenabled
 				setTimeout(() => window.scrollTo(0, 0), 100);
 				return;
-			case 'disabled':
+			}
+			case 'disabled': {
 				// Delay showing the feed when switching pages, sometimes it can appear
 				// before the page has switched
 				//
@@ -41,11 +42,13 @@ export function setupRouteChange(store: Store) {
 
 				element!.dataset.nfeEnabled = 'false';
 				return;
-			case 'disabled-temporarily':
+			}
+			case 'disabled-temporarily': {
 				element!.dataset.nfeEnabled = 'false';
 				const remainingTime = status.until - Date.now();
 				const checkAgainDelay = remainingTime > 60000 ? 60000 : remainingTime;
 				setTimeout(updateEnabledStatus, checkAgainDelay);
+			}
 		}
 	};
 

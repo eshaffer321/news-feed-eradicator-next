@@ -117,7 +117,7 @@ const quoteAddBulk: AppEffect = (store) => (action) => {
 				type: ActionType.PARSE_ERROR,
 				message: `Invalid format on line ${(
 					lineCount + 1
-				).toString()}: \"${quote}\". Check that you have a "~" separating the quote text and the source.`,
+				).toString()}: "${quote}". Check that you have a "~" separating the quote text and the source.`,
 			});
 		} else {
 			quote.forEach((field) => trimmedQuote.push(field.trim()));
