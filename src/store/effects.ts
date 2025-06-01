@@ -105,7 +105,7 @@ const quoteAddBulk: AppEffect = (store) => (action) => {
 
 	const lines = action.text.split('\n');
 	const quotes: string[][] = [];
-	for (var lineCount = 0; lineCount < lines.length; lineCount++) {
+	for (let lineCount = 0; lineCount < lines.length; lineCount++) {
 		const line = lines[lineCount];
 		const quote = line.split('~');
 		const trimmedQuote: string[] = [];

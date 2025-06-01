@@ -17,8 +17,8 @@ export function isEnabled(state: SettingsState): boolean {
 
 export function enabledStatus(state: SettingsState): EnabledStatus {
 	const siteStatuses = getSiteStatus(state);
-	for (let siteId of Object.keys(Sites)) {
-		let site: Site = Sites[siteId];
+	for (const siteId of Object.keys(Sites)) {
+		const site: Site = Sites[siteId];
 		const siteStatus: SiteStatus = siteStatuses[siteId];
 		if (
 			site.domain.find((domain) => window.location.host.includes(domain)) !=

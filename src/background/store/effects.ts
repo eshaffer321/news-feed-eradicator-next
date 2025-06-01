@@ -8,7 +8,6 @@ import config from '../../config';
 import { getPermissions, sitesEffect } from './sites/effects';
 import { getSettingsHealth } from './sites/selectors';
 import { SiteId, Sites } from '../../sites';
-import SiteStateTag = Settings.SiteStateTag;
 
 export type BackgroundEffect = Effect<BackgroundState, BackgroundActionObject>;
 
@@ -150,7 +149,7 @@ export const registerContentScripts: BackgroundEffect =
 		}
 	};
 
-export const logAction: BackgroundEffect = (store) => async (action) => {
+export const logAction: BackgroundEffect = () => async (action) => {
 	console.info(action);
 };
 

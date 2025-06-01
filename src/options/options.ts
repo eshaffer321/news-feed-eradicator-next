@@ -18,7 +18,7 @@ export function start(container: Node | null) {
 		throw new Error('Root element not found');
 	}
 
-	var nfeContainer = document.createElement('div');
+	const nfeContainer = document.createElement('div');
 	nfeContainer.id = 'options-container';
 	container.appendChild(nfeContainer);
 

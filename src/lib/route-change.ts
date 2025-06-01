@@ -10,7 +10,7 @@ import { Store } from '../store';
 const CHECK_INTERVAL = 1000;
 
 let lastPath: string | undefined = undefined;
-let element = document.querySelector('html');
+const element = document.querySelector('html');
 
 export function setupRouteChange(store: Store) {
 	const updateEnabledStatus = (): any => {
@@ -51,7 +51,7 @@ export function setupRouteChange(store: Store) {
 
 	let timer: NodeJS.Timer | undefined = undefined;
 	const checkIfLocationChanged = () => {
-		let path = document.location.pathname;
+		const path = document.location.pathname;
 		if (path != lastPath) {
 			lastPath = path;
 			updateEnabledStatus();

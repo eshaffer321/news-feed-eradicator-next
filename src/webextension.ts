@@ -117,8 +117,8 @@ type ChromeWebExtensionAPI = {
 	};
 };
 
-declare var browser: WebExtensionAPI | undefined;
-declare var chrome: ChromeWebExtensionAPI | undefined;
+declare let browser: WebExtensionAPI | undefined;
+declare let chrome: ChromeWebExtensionAPI | undefined;
 
 export function getBrowser(): WebExtensionAPI {
 	if (typeof browser !== 'undefined') {
