@@ -1,28 +1,105 @@
-# News Feed Eradicator
+# 🚫 News Feed Eradicator
 
-A browser extension that deletes your Facebook news feed
-and replaces it with a nice quote.
+A browser extension that deletes your Facebook news feed and replaces it with an inspiring quote.  
+Stay focused, reclaim your time, and make your social experience positive! ✨
 
-[Install Chrome Extension](https://chrome.google.com/webstore/detail/news-feed-eradicator-for/fjcldmjmjhkklehbacihaiopjklihlgg?hl=en)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/fjcldmjmjhkklehbacihaiopjklihlgg.svg?label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/news-feed-eradicator-for/fjcldmjmjhkklehbacihaiopjklihlgg?hl=en)
+[![Firefox Add-on](https://img.shields.io/amo/v/news-feed-eradicator.svg?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/news-feed-eradicator/)
 
-[Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/news-feed-eradicator/)
+![Screenshot](assets/screenshot.jpg)
 
-![Screenshot](https://raw.githubusercontent.com/jordwest/news-feed-eradicator/master/assets/screenshot.jpg)
+---
 
-## Development
+## 🚀 Quick Start
 
-This plugin is built as a WebExtension - a standard for browser plugins currently supported in both Chrome and Firefox.
+1. **Clone the repo:**
+   ```sh
+   git clone https://github.com/YOUR_USERNAME/news-feed-eradicator-next.git
+   cd news-feed-eradicator-next
+   ```
 
-To build for either browser, clone the repository and then run:
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
 
-    make dev
+3. **Build the extension:**
+   ```sh
+   npm run build
+   ```
 
-If everything is successful, check the `build` folder for the extension contents. You can load the `build` directory into either Chrome or Firefox as an _unpacked_ or _temporary_ extension. See the instructions for [Chrome](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) or [Firefox](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox).
+4. **Load the extension in your browser:**
+   - **Chrome:** Go to `chrome://extensions`, enable Developer Mode, click "Load unpacked", and select the `build/` folder.
+   - **Firefox:** Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", and select `build/manifest.json`.
 
-Running `make dev` will watch for changes and recompile, however each time you make changes you'll need to tell the browser to reload the temporary extension.
+---
 
-To build a distributable `.zip` for production, just run:
+## 🛠️ Available Scripts
 
-    make
+- `npm run build` – Build the extension for production
+- `npm run dev` – Build and watch for changes (development)
+- `npm run format` – Format code with Prettier
+- `npm run check` – Type-check with TypeScript
+- `npm run copy-assets` – Copy static assets to build directory
+- `npm run clean` – Remove build artifacts and dependencies
+- `npm run package` – Create a zip of the build for distribution
+- `npm run package-source` – Create a source zip for the Firefox Add-on store
 
-The extension package can be found in the `dist` folder.
+---
+
+## 🧑‍💻 Development
+
+- **Edit code in `src/`** – TypeScript, modular components, and Redux-style state management.
+- **Assets in `assets/` and `src/icons/`** – Images, icons, and screenshots.
+- **All build output goes to `build/`** – This is what you load as an unpacked extension.
+
+---
+
+## 📝 Contributing
+
+Contributions are welcome!  
+Please open issues, submit pull requests, or suggest features.  
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines (coming soon).
+
+---
+
+## 📦 Distribution
+
+- **Production build:**  
+  Run `npm run build` then `npm run package`.  
+  The distributable zip will be in the `dist/` folder.
+
+- **Source package for Firefox:**  
+  Run `npm run package-source`.
+
+---
+
+## 🧩 Browser Support
+
+- Chrome
+- Firefox
+- (Edge and others may work, but are not officially supported yet)
+
+---
+
+## 🛡️ Prerequisites
+
+- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+
+---
+
+## ❤️ Credits
+
+Originally created by [Jordan West](https://github.com/jordwest).  
+Maintained and modernized by [Erick Shaffer](https://github.com/eshaffer321).
+
+---
+
+## 📄 License
+
+MIT
+
+---
+
+*Happy focusing! 🚀*
