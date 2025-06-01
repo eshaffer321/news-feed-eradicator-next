@@ -13,7 +13,7 @@ let lastPath: string | undefined = undefined;
 const element = document.querySelector('html');
 
 export function setupRouteChange(store: Store) {
-	const updateEnabledStatus = (): any => {
+	const updateEnabledStatus = (): void => {
 		const settings = store.getState().settings;
 		if (settings == null) {
 			// Settings not loaded yet, we need them to check if this site is enabled

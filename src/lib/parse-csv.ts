@@ -1,7 +1,7 @@
 // https://stackoverflow.com/a/14991797/10535239
 
-export default function parseCSV(str: string): Array<Array<any>> {
-	const arr: ReturnType<typeof parseCSV> = [];
+export default function parseCSV(str: string): string[][] {
+	const arr: string[][] = [];
 	let quote = false; // 'true' means we're inside a quoted field
 
 	// Iterate over each character, keep track of current row and column (of the returned array)
