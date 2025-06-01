@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 18
       - run: npm install
-      - run: npm run format
+      - run: npm run format:check
 
   typecheck:
     name: Type Check
