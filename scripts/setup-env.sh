@@ -23,8 +23,3 @@ npm install
 
 # Install Playwright browsers
 npx playwright install
-
-# Run lints and tests using xvfb for e2e
-npm run lint
-npm test
-xvfb-run --auto-servernum -- npm run test:e2e
