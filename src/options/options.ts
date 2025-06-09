@@ -1,4 +1,3 @@
-import './options.css';
 import OptionsPage from './OptionsPage.svelte';
 
 export function start(container: HTMLElement | null) {
