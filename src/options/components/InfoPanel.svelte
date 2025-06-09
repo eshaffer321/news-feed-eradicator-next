@@ -25,28 +25,31 @@ function visit(tab) {
 
 <div class="max-w-3xl mx-auto">
     <div class="space-y-6">
-        <h3 class="text-center text-2xl font-bold text-gray-800">News Feed Eradicator</h3>
+        <h3 class="text-center text-3xl font-semibold text-indigo-700">News Feed Eradicator</h3>
         <div class="flex justify-center space-x-6 border-b pb-2">
-            <a
-                href="javascript:;"
-                class="text-lg hover:text-blue-500"
-                class:text-blue-600={state?.uiOptions.tab==='sites'}
+            <button
+                type="button"
+                class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
+                class:text-indigo-600={state?.uiOptions.tab==='sites'}
+                class:border-indigo-600={state?.uiOptions.tab==='sites'}
                 on:click={() => visit('sites')}
-            >Sites</a>
-            <a
-                href="javascript:;"
-                class="text-lg hover:text-blue-500"
-                class:text-blue-600={state?.uiOptions.tab==='quotes'}
+            >Sites</button>
+            <button
+                type="button"
+                class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
+                class:text-indigo-600={state?.uiOptions.tab==='quotes'}
+                class:border-indigo-600={state?.uiOptions.tab==='quotes'}
                 on:click={() => visit('quotes')}
-            >Quotes</a>
-            <a
-                href="javascript:;"
-                class="text-lg hover:text-blue-500"
-                class:text-blue-600={state?.uiOptions.tab==='about'}
+            >Quotes</button>
+            <button
+                type="button"
+                class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
+                class:text-indigo-600={state?.uiOptions.tab==='about'}
+                class:border-indigo-600={state?.uiOptions.tab==='about'}
                 on:click={() => visit('about')}
-            >About</a>
+            >About</button>
         </div>
-        <div class="bg-white shadow rounded-lg p-6">
+        <div class="bg-white shadow-md ring-1 ring-gray-200 rounded-xl p-6">
             {#if state?.uiOptions.tab === 'sites'}
                 <SitesOptions {store}/>
             {:else if state?.uiOptions.tab === 'quotes'}
@@ -55,10 +58,10 @@ function visit(tab) {
                 <About/>
             {/if}
         </div>
-        <div class="text-center text-sm text-gray-500">
-            by <a href="http://west.io" class="underline hover:text-blue-600">Jordan West</a>
+        <div class="text-center text-sm text-gray-500 mt-4">
+            by <a href="http://west.io" class="underline hover:text-indigo-600">Jordan West</a>
             and
-            <a href="https://github.com/jordwest/news-feed-eradicator/graphs/contributors" class="underline hover:text-blue-600">contributors</a>
+            <a href="https://github.com/jordwest/news-feed-eradicator/graphs/contributors" class="underline hover:text-indigo-600">contributors</a>
         </div>
     </div>
 </div>
