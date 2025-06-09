@@ -4,7 +4,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import { string } from 'rollup-plugin-string';
-import svelte from '@sveltejs/rollup-plugin-svelte';
+import svelte from 'rollup-plugin-svelte';
 
 const plugins = [
        svelte({ emitCss: true }),
