@@ -27,27 +27,27 @@ function visit(tab) {
     <div class="space-y-6">
         <h3 class="text-center text-3xl font-semibold text-indigo-700">News Feed Eradicator</h3>
         <div class="flex justify-center space-x-6 border-b pb-2">
-            <a
-                href="javascript:;"
+            <button
+                type="button"
                 class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
                 class:text-indigo-600={state?.uiOptions.tab==='sites'}
                 class:border-indigo-600={state?.uiOptions.tab==='sites'}
                 on:click={() => visit('sites')}
-            >Sites</a>
-            <a
-                href="javascript:;"
+            >Sites</button>
+            <button
+                type="button"
                 class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
                 class:text-indigo-600={state?.uiOptions.tab==='quotes'}
                 class:border-indigo-600={state?.uiOptions.tab==='quotes'}
                 on:click={() => visit('quotes')}
-            >Quotes</a>
-            <a
-                href="javascript:;"
+            >Quotes</button>
+            <button
+                type="button"
                 class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
                 class:text-indigo-600={state?.uiOptions.tab==='about'}
                 class:border-indigo-600={state?.uiOptions.tab==='about'}
                 on:click={() => visit('about')}
-            >About</a>
+            >About</button>
         </div>
         <div class="bg-white shadow-md ring-1 ring-gray-200 rounded-xl p-6">
             {#if state?.uiOptions.tab === 'sites'}
