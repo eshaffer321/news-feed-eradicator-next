@@ -10,12 +10,16 @@ Welcome to the **News Feed Eradicator** project. This repository contains a Type
 - **Trailing commas:** Use ES5 style (see `.prettierrc.js`).
 
 Run `npm run format` (or `npm run lint:fix`) before committing to apply Prettier formatting automatically.
+Run `npm install` beforehand to ensure all dependencies are available.
 
 ## Linting and tests
 
 - Lint the code with `npm run lint`.
 - Run the test suite with `npm test` (uses [Vitest](https://vitest.dev)).
-- Both lint and tests should pass before committing.
+- Run the end-to-end tests with `npm run test:e2e`.
+  - If the command complains that `xvfb-run` is missing, install it with `apt-get install -y xvfb`.
+  - If it fails because browsers are missing, run `npx playwright install` first.
+- All linting and tests should pass before committing.
 
 If commands fail due to environment restrictions, mention this in your PR description.
 
