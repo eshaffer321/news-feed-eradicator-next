@@ -25,7 +25,7 @@ function toggleBuiltin() {
                         <input
                             id="show-quotes"
                             type="checkbox"
-                            class="peer col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+class="peer col-start-1 row-start-1 appearance-none rounded-sm border-2 border-gray-400 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             checked={store.getState().settings?.showQuotes}
                             on:change={toggleQuotes}
                         />
@@ -45,7 +45,7 @@ function toggleBuiltin() {
                             <input
                                 id="builtin-quotes"
                                 type="checkbox"
-                                class="peer col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+class="peer col-start-1 row-start-1 appearance-none rounded-sm border-2 border-gray-400 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 checked={store.getState().settings?.builtinQuotesEnabled}
                                 on:change={toggleBuiltin}
                             />
