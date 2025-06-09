@@ -11,16 +11,26 @@ function toggleBuiltin() {
 }
 </script>
 
-<div class="v-stack-2">
-    <h2>Quotes</h2>
-    <label>
-        <input type="checkbox" checked={store.getState().settings?.showQuotes} on:change={toggleQuotes} />
-        Show Quotes
+<div class="space-y-4">
+    <h2 class="text-xl font-semibold">Quotes</h2>
+    <label class="flex items-center space-x-2">
+        <input
+            type="checkbox"
+            class="form-checkbox h-4 w-4 text-blue-600"
+            checked={store.getState().settings?.showQuotes}
+            on:change={toggleQuotes}
+        />
+        <span>Show Quotes</span>
     </label>
     {#if store.getState().settings?.showQuotes}
-        <label>
-            <input type="checkbox" checked={store.getState().settings?.builtinQuotesEnabled} on:change={toggleBuiltin} />
-            Enable Built-in Quotes
+        <label class="flex items-center space-x-2">
+            <input
+                type="checkbox"
+                class="form-checkbox h-4 w-4 text-blue-600"
+                checked={store.getState().settings?.builtinQuotesEnabled}
+                on:change={toggleBuiltin}
+            />
+            <span>Enable Built-in Quotes</span>
         </label>
     {/if}
 </div>
