@@ -13,17 +13,20 @@ Stay focused, reclaim your time, and make your social experience positive! ✨
 ## 🚀 Quick Start
 
 1. **Clone the repo:**
+
    ```sh
    git clone https://github.com/YOUR_USERNAME/news-feed-eradicator-next.git
    cd news-feed-eradicator-next
    ```
 
 2. **Install dependencies:**
+
    ```sh
    npm install
    ```
 
 3. **Build the extension:**
+
    ```sh
    npm run build
    ```
@@ -52,6 +55,19 @@ Stay focused, reclaim your time, and make your social experience positive! ✨
 - **Edit code in `src/`** – TypeScript, modular components, and Redux-style state management.
 - **Assets in `assets/` and `src/icons/`** – Images, icons, and screenshots.
 - **All build output goes to `build/`** – This is what you load as an unpacked extension.
+
+## 📸 E2E Screenshot Test
+
+Run the Playwright test to capture a screenshot of the options page:
+
+```sh
+npm run build
+npx playwright install --with-deps
+sudo apt-get update && sudo apt-get install -y xvfb
+npm run test:e2e
+```
+
+The screenshot is stored under `test-results/options-page.png`. The CI workflow uploads this file as an artifact for pull requests.
 
 ---
 
@@ -102,4 +118,4 @@ MIT
 
 ---
 
-*Happy focusing! 🚀*
+_Happy focusing! 🚀_
