@@ -37,7 +37,7 @@
 		"test": "vitest run",
                "test:e2e": "xvfb-run -a playwright test"
        },
-	"devDependencies": {
+        "devDependencies": {
 		"@eslint/css": "^0.8.1",
 		"@eslint/js": "^9.28.0",
 		"@eslint/json": "^0.12.0",
@@ -56,9 +56,11 @@
 		"redux-thunk": "^2.3.0",
 		"rollup": "^2.2.0",
 		"rollup-plugin-css-only": "^2.0.0",
-		"rollup-plugin-node-resolve": "^3.4.0",
-		"rollup-plugin-string": "^3.0.0",
-		"snabbdom": "^0.7.2",
+               "rollup-plugin-node-resolve": "^3.4.0",
+               "rollup-plugin-string": "^3.0.0",
+               "@sveltejs/rollup-plugin-svelte": "^7.0.0",
+               "svelte": "^3.59.2",
+               "snabbdom": "^0.7.2",
 		"tslib": "^1.9.3",
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^8.33.0",

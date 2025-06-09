@@ -3,12 +3,14 @@ import css from 'rollup-plugin-css-only';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
-import { string } from 'rollup-plugin-string'
+import { string } from 'rollup-plugin-string';
+import svelte from '@sveltejs/rollup-plugin-svelte';
 
 const plugins = [
-	resolve(),
-	commonjs(),
-	typescript(),
+       svelte({ emitCss: true }),
+       resolve(),
+       commonjs(),
+       typescript(),
 	replace({
 		'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
 		preventAssignment: true,
