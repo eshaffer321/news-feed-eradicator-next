@@ -11,14 +11,19 @@ function toggle(id) {
 }
 </script>
 
-<div class="v-stack-2">
-    <h2>Sites</h2>
-    <p>Choose sites below to enable News Feed Eradicator.</p>
-    <div class="v-stack">
+<div class="space-y-4">
+    <h2 class="text-xl font-semibold">Sites</h2>
+    <p class="text-gray-600">Choose sites below to enable News Feed Eradicator.</p>
+    <div class="space-y-2">
         {#each Object.entries(Sites) as [id, site]}
-            <label class="h-stack">
-                <input type="checkbox" checked={store.getState().settings?.sites[id]?.type === SettingsSiteStateTag.ENABLED} on:change={() => toggle(id)} />
-                {site.label}
+            <label class="flex items-center space-x-2">
+                <input
+                    type="checkbox"
+                    class="form-checkbox h-4 w-4 text-blue-600"
+                    checked={store.getState().settings?.sites[id]?.type === SettingsSiteStateTag.ENABLED}
+                    on:change={() => toggle(id)}
+                />
+                <span>{site.label}</span>
             </label>
         {/each}
     </div>

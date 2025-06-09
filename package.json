@@ -35,7 +35,7 @@
 		"lint": "eslint \"src/**/*.{js,ts}\"",
 		"lint:fix": "eslint \"src/**/*.{js,ts}\" --fix",
 		"test": "vitest run",
-               "test:e2e": "xvfb-run -a playwright test"
+                "test:e2e": "npm run build && xvfb-run -a playwright test"
        },
 	"devDependencies": {
 		"@eslint/css": "^0.8.1",
