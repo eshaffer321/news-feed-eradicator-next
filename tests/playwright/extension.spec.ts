@@ -30,7 +30,7 @@ test('loads options page', async () => {
 	const extensionId = await getExtensionId(context);
 	const page = await context.newPage();
 	await page.goto(`chrome-extension://${extensionId}/options.html`);
-	await expect(page.locator('h3.text-center')).toHaveText(
+	await expect(page.locator('[data-testid="title"]')).toHaveText(
 		'News Feed Eradicator'
 	);
 	await fs.mkdir('test-results', { recursive: true });
