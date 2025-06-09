@@ -25,7 +25,7 @@ Stay focused, reclaim your time, and make your social experience positive! ✨
    npm install
    ```
 
-3. **Build the extension:**
+3. **Build the extension:** This compiles Tailwind and bundles the scripts.
 
    ```sh
    npm run build
@@ -39,7 +39,8 @@ Stay focused, reclaim your time, and make your social experience positive! ✨
 
 ## 🛠️ Available Scripts
 
-- `npm run build` – Build the extension for production
+- `npm run build` – Build the extension for production (includes CSS generation)
+- `npm run build:css` – Build the Tailwind stylesheet only
 - `npm run dev` – Build and watch for changes (development)
 - `npm run format` – Format code with Prettier
 - `npm run check` – Type-check with TypeScript
@@ -55,6 +56,11 @@ Stay focused, reclaim your time, and make your social experience positive! ✨
 - **Edit code in `src/`** – TypeScript, modular components, and Redux-style state management.
 - **Assets in `assets/` and `src/icons/`** – Images, icons, and screenshots.
 - **All build output goes to `build/`** – This is what you load as an unpacked extension.
+- **Tailwind CSS** – The options page uses Tailwind. Generate `src/options/options.css` with:
+
+  ```sh
+  npx tailwindcss -c tailwind.config.js -i ./src/options/tailwind.css -o ./src/options/options.css --minify
+  ```
 
 ## 📸 E2E Screenshot Test
 

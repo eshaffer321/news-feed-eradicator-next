@@ -27,7 +27,8 @@
 		"format:check": "prettier --check \"./src\"",
 		"check": "tsc --noEmit",
 		"copy-assets": "node scripts/copy-assets.js",
-		"build": "npm run copy-assets && NODE_ENV=production rollup -c",
+                "build:css": "tailwindcss -c tailwind.config.js -i ./src/options/tailwind.css -o ./src/options/options.css --minify",
+                "build": "npm run build:css && npm run copy-assets && NODE_ENV=production rollup -c",
 		"dev": "npm run copy-assets && rollup -c --watch",
 		"clean": "rm -rf dist build node_modules",
 		"package": "mkdir -p dist && (cd build && zip -r ../dist/NewsFeedEradicator_$(git describe --always --tag).zip .)",
@@ -64,8 +65,9 @@
 		"tslib": "^1.9.3",
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^8.33.0",
-		"vitest": "^0.34.6"
-	},
+                "vitest": "^0.34.6",
+                "tailwindcss": "^3.4.5"
+        },
 	"dependencies": {
 		"@types/node": "^8.10.36"
 	}
