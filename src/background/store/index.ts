@@ -14,15 +14,12 @@ export type SettingsV1 = {
 
 export type SettingsSitesState = Record<SiteId, SettingsSiteState>;
 
-const defaults: SettingsV1 = {
-	version: 1,
-	showQuotes: true,
-	builtinQuotesEnabled: true,
-	featureIncrement: 0,
-	hiddenBuiltinQuotes: [],
-	customQuotes: [],
-	sites: {},
-};
+export enum SettingsSiteStateTag {
+	ENABLED = 'enabled',
+	CHECK_PERMISSIONS = 'check_permissions',
+	DISABLED = 'disabled',
+	DISABLED_TEMPORARILY = 'disabled_temporarily',
+}
 
 export const defaultSites = (): SettingsSitesState => {
 	const sites: SettingsSitesState = {} as SettingsSitesState;
@@ -32,12 +29,15 @@ export const defaultSites = (): SettingsSitesState => {
 	return sites;
 };
 
-export enum SettingsSiteStateTag {
-	ENABLED = 'enabled',
-	CHECK_PERMISSIONS = 'check_permissions',
-	DISABLED = 'disabled',
-	DISABLED_TEMPORARILY = 'disabled_temporarily',
-}
+const defaults: SettingsV1 = {
+	version: 1,
+	showQuotes: true,
+	builtinQuotesEnabled: true,
+	featureIncrement: 0,
+	hiddenBuiltinQuotes: [],
+	customQuotes: [],
+	sites: {},
+};
 
 export type SettingsSiteState =
 	| { type: SettingsSiteStateTag.ENABLED }
@@ -50,10 +50,18 @@ export type SettingsT = SettingsV1;
 export async function loadSettings(): Promise<SettingsT> {
 	return getBrowser()
 		.storage.sync.get(null)
-		.then((settings: Partial<SettingsV1>) => ({
-			...defaults,
-			...settings,
-		}));
+		.then((settings: Partial<SettingsV1>) => {
+			// Merge defaults with stored settings
+			const merged = {
+				...defaults,
+				...settings,
+			};
+			// If sites is empty or undefined, initialize with default sites
+			if (!merged.sites || Object.keys(merged.sites).length === 0) {
+				merged.sites = defaultSites();
+			}
+			return merged;
+		});
 }
 
 export async function saveSettings(settings: SettingsT) {

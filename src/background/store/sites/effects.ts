@@ -17,4 +17,16 @@ const checkPermissions: BackgroundEffect = (store) => async (action) => {
 	}
 };
 
-export const sitesEffect: BackgroundEffect = effectAll(checkPermissions);
+const reregisterOnSiteChange: BackgroundEffect = (store) => async (action) => {
+	if (action.type === BackgroundActionType.SITES_SET_STATE) {
+		// Re-register content scripts when a site is enabled/disabled
+		store.dispatch({
+			type: BackgroundActionType.CONTENT_SCRIPTS_REGISTER,
+		});
+	}
+};
+
+export const sitesEffect: BackgroundEffect = effectAll(
+	checkPermissions,
+	reregisterOnSiteChange
+);

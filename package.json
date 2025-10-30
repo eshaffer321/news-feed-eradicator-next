@@ -29,6 +29,7 @@
 		"copy-assets": "node scripts/copy-assets.js",
                 "build:css": "tailwindcss -c tailwind.config.js -i ./src/options/tailwind.css -o ./src/options/options.css --minify",
                 "build": "npm run build:css && npm run copy-assets && NODE_ENV=production rollup -c",
+		"build:test": "npm run build:css && TEST_BUILD=true npm run copy-assets && NODE_ENV=production rollup -c",
 		"dev": "npm run copy-assets && rollup -c --watch",
 		"clean": "rm -rf dist build node_modules",
 		"package": "mkdir -p dist && (cd build && zip -r ../dist/NewsFeedEradicator_$(git describe --always --tag).zip .)",
@@ -36,7 +37,7 @@
 		"lint": "eslint \"src/**/*.{js,ts}\"",
 		"lint:fix": "eslint \"src/**/*.{js,ts}\" --fix",
 		"test": "vitest run",
-                "test:e2e": "npm run build && xvfb-run -a playwright test"
+                "test:e2e": "npm run build:test && xvfb-run -a playwright test"
        },
 	"devDependencies": {
 		"@eslint/css": "^0.8.1",

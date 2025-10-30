@@ -2,6 +2,7 @@
 import { BackgroundActionType } from '../../background/store/action-types';
 import { ActionType } from '../../store/action-types';
 export let store;
+export let state;
 
 function toggleQuotes() {
     store.dispatch({ type: ActionType.BACKGROUND_ACTION, action: { type: BackgroundActionType.QUOTES_SHOW_TOGGLE } });
@@ -25,8 +26,8 @@ function toggleBuiltin() {
                         <input
                             id="show-quotes"
                             type="checkbox"
-                            class="peer col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            checked={store.getState().settings?.showQuotes}
+                            class="peer col-start-1 row-start-1 size-4 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            checked={state?.settings?.showQuotes}
                             on:change={toggleQuotes}
                         />
                         <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white" viewBox="0 0 14 14" fill="none">
@@ -35,7 +36,7 @@ function toggleBuiltin() {
                     </div>
                 </div>
             </div>
-            {#if store.getState().settings?.showQuotes}
+            {#if state?.settings?.showQuotes}
                 <div class="relative flex gap-3 py-4">
                     <div class="min-w-0 flex-1 text-sm">
                         <label for="builtin-quotes" class="font-medium text-gray-900 select-none">Enable Built-in Quotes</label>
@@ -45,8 +46,8 @@ function toggleBuiltin() {
                             <input
                                 id="builtin-quotes"
                                 type="checkbox"
-                                class="peer col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                checked={store.getState().settings?.builtinQuotesEnabled}
+                                class="peer col-start-1 row-start-1 size-4 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                checked={state?.settings?.builtinQuotesEnabled}
                                 on:change={toggleBuiltin}
                             />
                             <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white" viewBox="0 0 14 14" fill="none">

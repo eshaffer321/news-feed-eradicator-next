@@ -51,9 +51,9 @@ function visit(tab) {
         </div>
         <div class="bg-white shadow-md ring-1 ring-gray-200 rounded-xl p-6">
             {#if state?.uiOptions.tab === 'sites'}
-                <SitesOptions {store}/>
+                <SitesOptions {store} {state}/>
             {:else if state?.uiOptions.tab === 'quotes'}
-                <QuoteOptions {store}/>
+                <QuoteOptions {store} {state}/>
             {:else}
                 <About/>
             {/if}
