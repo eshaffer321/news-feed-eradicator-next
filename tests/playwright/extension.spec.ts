@@ -40,7 +40,7 @@ test('loads options page', async () => {
 	await context.close();
 });
 
-test('blocks Reddit feed (may be flaky in CI)', async () => {
+test('blocks Reddit feed (using old.reddit.com for stability)', async () => {
 	const context = await launchWithExtension();
 	const extensionId = await getExtensionId(context);
 
@@ -73,20 +73,29 @@ test('blocks Reddit feed (may be flaky in CI)', async () => {
 
 	// IMPORTANT: Load Reddit AFTER enabling the site
 	// Content scripts only inject into pages loaded after registration
-	console.log('Loading Reddit (after enabling)...');
+	// Use old.reddit.com for more stable testing (simpler HTML, less bot detection)
+	console.log('Loading old.reddit.com (after enabling)...');
 	const page = await context.newPage();
 
-	// Go to Reddit
-	await page.goto('https://www.reddit.com/', {
+	// Go to old Reddit (more stable for testing)
+	await page.goto('https://old.reddit.com/', {
 		waitUntil: 'domcontentloaded',
 		timeout: 30000,
 	});
 
-	console.log('Reddit loaded!');
+	console.log('old.reddit.com loaded!');
 
 	// Wait for extension to inject (runs every 1000ms)
 	console.log('Waiting 5 seconds for extension injection...');
 	await page.waitForTimeout(5000);
+
+	// Diagnostic: Check what's actually on the page
+	const pageTitle = await page.title();
+	const bodyText = await page.locator('body').textContent();
+	console.log(`Page title: ${pageTitle}`);
+	console.log(
+		`Body text (first 100 chars): ${bodyText?.substring(0, 100) || 'empty'}`
+	);
 
 	// Take screenshot
 	await fs.mkdir('test-results', { recursive: true });
@@ -104,13 +113,24 @@ test('blocks Reddit feed (may be flaky in CI)', async () => {
 		await expect(page.locator('#nfe-container')).toBeVisible();
 	} else {
 		console.log(
-			'⚠ WARNING: NFE container not found - Reddit may be blocked in CI'
+			'✗ FAIL: NFE container not found on old.reddit.com'
 		);
-		// Don't fail - Reddit might block CI IPs or behave differently
+		// Save HTML for debugging
+		const html = await page.content();
+		await fs.writeFile(
+			path.join('test-results', 'reddit-failed.html'),
+			html
+		);
+		console.log('Saved page HTML to test-results/reddit-failed.html');
+
 		await page.screenshot({
 			path: path.join('test-results', 'reddit-failed.png'),
 			fullPage: true,
 		});
+
+		throw new Error(
+			'Extension did not inject on old.reddit.com - blocking may not be working'
+		);
 	}
 
 	await context.close();
