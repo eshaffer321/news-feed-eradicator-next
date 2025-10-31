@@ -3,9 +3,10 @@ import { Sites } from '../../sites';
 import { setSiteState } from '../../store/actions';
 import { SettingsSiteStateTag } from '../../background/store/index';
 export let store;
+export let state;
 
 function toggle(id) {
-    const current = store.getState().settings?.sites[id];
+    const current = state.settings?.sites[id];
     const next = current?.type === SettingsSiteStateTag.ENABLED ? { type: SettingsSiteStateTag.DISABLED } : { type: SettingsSiteStateTag.ENABLED };
     store.dispatch(setSiteState(id, next));
 }
@@ -28,8 +29,8 @@ function toggle(id) {
                                 id={id}
                                 name={id}
                                 type="checkbox"
-                                class="peer col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                checked={store.getState().settings?.sites[id]?.type === SettingsSiteStateTag.ENABLED}
+                                class="peer col-start-1 row-start-1 size-4 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                checked={state?.settings?.sites[id]?.type === SettingsSiteStateTag.ENABLED}
                                 on:change={() => toggle(id)}
                             />
                             <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white" viewBox="0 0 14 14" fill="none">
