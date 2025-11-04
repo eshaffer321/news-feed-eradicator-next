@@ -27,8 +27,8 @@
 		"format:check": "prettier --check \"./src\"",
 		"check": "tsc --noEmit",
 		"copy-assets": "node scripts/copy-assets.js",
-                "build:css": "tailwindcss -c tailwind.config.js -i ./src/options/tailwind.css -o ./src/options/options.css --minify",
-                "build": "npm run build:css && npm run copy-assets && NODE_ENV=production rollup -c",
+		"build:css": "tailwindcss -c tailwind.config.js -i ./src/options/tailwind.css -o ./src/options/options.css --minify",
+		"build": "npm run build:css && npm run copy-assets && NODE_ENV=production rollup -c",
 		"build:test": "npm run build:css && TEST_BUILD=true npm run copy-assets && NODE_ENV=production rollup -c",
 		"dev": "npm run copy-assets && rollup -c --watch",
 		"clean": "rm -rf dist build node_modules",
@@ -37,17 +37,18 @@
 		"lint": "eslint \"src/**/*.{js,ts}\"",
 		"lint:fix": "eslint \"src/**/*.{js,ts}\" --fix",
 		"test": "vitest run",
-                "test:e2e": "npm run build:test && xvfb-run -a playwright test"
-       },
+		"test:e2e": "npm run build:test && xvfb-run -a playwright test"
+	},
 	"devDependencies": {
 		"@eslint/css": "^0.8.1",
 		"@eslint/js": "^9.28.0",
-		"@eslint/json": "^0.12.0",
+		"@eslint/json": "^0.14.0",
 		"@eslint/markdown": "^6.4.0",
 		"@playwright/test": "^1.52.0",
 		"@rollup/plugin-commonjs": "^11.0.2",
 		"@rollup/plugin-replace": "^2.3.1",
 		"@rollup/plugin-typescript": "^4.0.0",
+		"@types/node": "^24.10.0",
 		"eslint": "^9.28.0",
 		"globals": "^16.2.0",
 		"husky": "^9.1.7",
@@ -59,17 +60,14 @@
 		"rollup": "^2.2.0",
 		"rollup-plugin-css-only": "^2.0.0",
 		"rollup-plugin-node-resolve": "^3.4.0",
-                "rollup-plugin-string": "^3.0.0",
-                "rollup-plugin-svelte": "^7.1.0",
-                "svelte": "^3.59.1",
-                "snabbdom": "^0.7.2",
+		"rollup-plugin-string": "^3.0.0",
+		"rollup-plugin-svelte": "^7.1.0",
+		"snabbdom": "^0.7.2",
+		"svelte": "^5.43.3",
+		"tailwindcss": "^3.4.5",
 		"tslib": "^1.9.3",
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^8.33.0",
-                "vitest": "^0.34.6",
-                "tailwindcss": "^3.4.5"
-        },
-	"dependencies": {
-		"@types/node": "^8.10.36"
+		"vitest": "^4.0.7"
 	}
 }
