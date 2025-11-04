@@ -13,12 +13,21 @@ let lastPath: string | undefined = undefined;
 const element = document.querySelector('html');
 
 export function setupRouteChange(store: Store) {
+	// Track the timeout so we can cancel it when status changes
+	let statusCheckTimeout: NodeJS.Timer | undefined = undefined;
+
 	const updateEnabledStatus = (): void => {
 		const settings = store.getState().settings;
 		if (settings == null) {
 			// Settings not loaded yet, we need them to check if this site is enabled
 			setTimeout(updateEnabledStatus, 100);
 			return;
+		}
+
+		// Cancel any pending status check timeout before updating
+		if (statusCheckTimeout != null) {
+			clearTimeout(statusCheckTimeout);
+			statusCheckTimeout = undefined;
 		}
 
 		const status = enabledStatus(settings);
@@ -47,7 +56,8 @@ export function setupRouteChange(store: Store) {
 				element!.dataset.nfeEnabled = 'false';
 				const remainingTime = status.until - Date.now();
 				const checkAgainDelay = remainingTime > 60000 ? 60000 : remainingTime;
-				setTimeout(updateEnabledStatus, checkAgainDelay);
+				statusCheckTimeout = setTimeout(updateEnabledStatus, checkAgainDelay);
+				return;
 			}
 		}
 	};
