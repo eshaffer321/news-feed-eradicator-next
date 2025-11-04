@@ -7,8 +7,8 @@ import SitesOptions from './SitesOptions.svelte';
 import QuoteOptions from './QuoteOptions.svelte';
 import About from './About.svelte';
 
-let store;
-let state;
+let store = $state();
+let state = $state();
 
 onMount(() => {
     store = createStore();
@@ -32,21 +32,21 @@ function visit(tab) {
                 class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
                 class:text-indigo-600={state?.uiOptions.tab==='sites'}
                 class:border-indigo-600={state?.uiOptions.tab==='sites'}
-                on:click={() => visit('sites')}
+                onclick={() => visit('sites')}
             >Sites</button>
             <button
                 type="button"
                 class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
                 class:text-indigo-600={state?.uiOptions.tab==='quotes'}
                 class:border-indigo-600={state?.uiOptions.tab==='quotes'}
-                on:click={() => visit('quotes')}
+                onclick={() => visit('quotes')}
             >Quotes</button>
             <button
                 type="button"
                 class="text-lg pb-2 border-b-2 border-transparent hover:text-indigo-500 hover:border-indigo-300 transition-colors"
                 class:text-indigo-600={state?.uiOptions.tab==='about'}
                 class:border-indigo-600={state?.uiOptions.tab==='about'}
-                on:click={() => visit('about')}
+                onclick={() => visit('about')}
             >About</button>
         </div>
         <div class="bg-white shadow-md ring-1 ring-gray-200 rounded-xl p-6">

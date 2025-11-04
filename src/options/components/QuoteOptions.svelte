@@ -1,8 +1,8 @@
 <script>
 import { BackgroundActionType } from '../../background/store/action-types';
 import { ActionType } from '../../store/action-types';
-export let store;
-export let state;
+
+let { store, state } = $props();
 
 function toggleQuotes() {
     store.dispatch({ type: ActionType.BACKGROUND_ACTION, action: { type: BackgroundActionType.QUOTES_SHOW_TOGGLE } });
@@ -28,7 +28,7 @@ function toggleBuiltin() {
                             type="checkbox"
                             class="peer col-start-1 row-start-1 size-4 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             checked={state?.settings?.showQuotes}
-                            on:change={toggleQuotes}
+                            onchange={toggleQuotes}
                         />
                         <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white" viewBox="0 0 14 14" fill="none">
                             <path class="opacity-0 peer-checked:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -48,7 +48,7 @@ function toggleBuiltin() {
                                 type="checkbox"
                                 class="peer col-start-1 row-start-1 size-4 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 checked={state?.settings?.builtinQuotesEnabled}
-                                on:change={toggleBuiltin}
+                                onchange={toggleBuiltin}
                             />
                             <svg class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white" viewBox="0 0 14 14" fill="none">
                                 <path class="opacity-0 peer-checked:opacity-100" d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

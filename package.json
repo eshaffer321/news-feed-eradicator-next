@@ -61,7 +61,7 @@
 		"rollup-plugin-css-only": "^2.0.0",
 		"rollup-plugin-node-resolve": "^3.4.0",
 		"rollup-plugin-string": "^3.0.0",
-		"rollup-plugin-svelte": "^7.1.0",
+		"rollup-plugin-svelte": "^7.2.3",
 		"snabbdom": "^0.7.2",
 		"svelte": "^5.43.3",
 		"tailwindcss": "^3.4.5",
