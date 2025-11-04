@@ -8,7 +8,10 @@ import { string } from 'rollup-plugin-string';
 
 const plugins = [
         svelte({ emitCss: true }),
-        resolve(),
+        resolve({
+		exportConditions: ['svelte'],
+		browser: true,
+	}),
 	commonjs(),
 	typescript(),
 	replace({
